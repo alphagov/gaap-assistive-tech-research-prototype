@@ -1,0 +1,6 @@
+---
+applications:
+- name: blue-badge
+  env:
+    USERNAME: blue-badge
+    PASSWORD: blue-badge
