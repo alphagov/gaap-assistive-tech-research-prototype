@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Check your answers
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript: history.go(-1)"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-xl">Check your answers</h1>
+
+      <h2 class="govuk-heading-m">Confirm your postal address</h2>
+
+      <p class="govuk-body">
+        This is where we will send your blue badge.
+      </p>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Name"
+            },
+            value: {
+              html: "Stephen Gill"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/#",
+                  text: "Change",
+                  visuallyHiddenText: "name"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Date of birth"
+            },
+            value: {
+              html: "11 June 1982"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/#",
+                  text: "Change",
+                  visuallyHiddenText: "date of birth"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Address"
+            },
+            value: {
+              html: data['what-is-your-address'] | nl2br
+            },
+            actions: {
+              items: [
+                {
+                  href: "/change-your-address",
+                  text: "Change",
+                  visuallyHiddenText: "address"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Next step: pay for your application</h2>
+
+      <p class="govuk-body govuk-!-margin-bottom-7">By submitting an application you confirm that as far as you know, the information you’ve provided is correct and complete.</p>
+
+      {{ govukButton({
+        href: "https://www.gov.uk/payments/chris-woz-here/test",
+        text: "Accept and proceed to payment"
+      }) }}
+
+    </div>
+  </div>
+{% endblock %}

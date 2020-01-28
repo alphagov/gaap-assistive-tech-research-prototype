@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Task list
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        Apply for a blue badge
+      </h1>
+
+      <ol class="app-task-list">
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">1. </span> Check before you start
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="/no-permission" aria-describedby="eligibility-completed">
+                  Check eligibility
+                </a>
+              </span>
+              <strong class="govuk-tag app-task-list__task-completed" id="eligibility-completed">Completed</strong>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">2. </span> Prepare application
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="/no-permission" aria-describedby="personal-details-completed">
+                  Personal details
+                </a>
+              </span>
+              <strong class="govuk-tag app-task-list__task-completed" id="personal-details-completed">Completed</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="/no-permission" aria-describedby="benefits-completed">
+                  Benefits
+                </a>
+              </span>
+              <strong class="govuk-tag app-task-list__task-completed" id="benefits-completed">Completed</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="/no-permission" aria-describedby="upload-a-photo-completed">
+                  Upload a photo
+                </a>
+              </span>
+              <strong class="govuk-tag app-task-list__task-completed" id="upload-a-photo-completed">Completed</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="/contact-preferences">
+                  Contact details
+                </a>
+              </span>
+              {% if data['how-contacted'] %}
+                <strong class="govuk-tag app-task-list__task-completed" id="company-information-completed">Completed</strong>
+              {% endif %}
+            </li>
+          </ul>
+        </li>
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">3. </span> Pay and submit application
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="/check-your-answers">
+                  Submit and pay
+                </a>
+              </span>
+            </li>
+          </ul>
+        </li>
+      </ol>
+
+    </div>
+  </div>
+
+{% endblock %}
