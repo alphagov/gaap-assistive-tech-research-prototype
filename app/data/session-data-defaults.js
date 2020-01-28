@@ -19,6 +19,6 @@ Example usage:
 
 module.exports = {
 
-  // Insert values here
+  'what-is-your-address': '72 Guild Street\nLondon\nSE23 6FH'
 
 }

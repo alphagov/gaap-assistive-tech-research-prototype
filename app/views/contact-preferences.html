@@ -1,21 +1,107 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Task list
+  Contact details
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript: history.go(-1)"
+  }) }}
 {% endblock %}
 
 {% block content %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-xl">
-        Confirm your contact details
-      </h1>
+      <form class="form" action="/task-list" method="post" novalidate>
+        {% set emailHtml %}
+          {{ govukInput({
+            id: "contact-by-email-address",
+            name: "contact-by-email-address",
+            type: "email",
+            classes: "govuk-!-width-two-thirds",
+            label: {
+              text: "Email address"
+            },
+            attributes: {
+              spellcheck: "false"
+            },
+            value: data['contact-by-email-address']
+          }) }}
+        {% endset -%}
 
-      <p>
-        …
-      </p>
+        {% set phoneHtml %}
+          {{ govukInput({
+            id: "contact-by-phone-number",
+            name: "contact-by-phone-number",
+            type: "tel",
+            classes: "govuk-!-width-two-thirds",
+            label: {
+              text: "Phone number"
+            },
+            value: data['contact-by-phone-number']
+          }) }}
+        {% endset -%}
 
+        {% set postHtml %}
+          {{ govukTextarea({
+            id: "contact-by-address",
+            name: "contact-by-address",
+            classes: "govuk-!-width-two-thirds",
+            label: {
+              text: "What is your address?"
+            },
+            value: data['contact-by-address']
+          }) }}
+        {% endset -%}
+
+        {{ govukRadios({
+          idPrefix: "how-contacted-conditional",
+          name: "how-contacted",
+          fieldset: {
+            legend: {
+              text: "Contact details",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--xl"
+            }
+          },
+          hint: {
+            text: "How should we contact you if we have a question about your application?"
+          },
+          items: [
+            {
+              value: "phone-number",
+              text: "Phone call",
+              checked: data['how-contacted'] === 'phone-number',
+              conditional: {
+                html: phoneHtml
+              }
+            },
+            {
+              value: "email-address",
+              text: "Email",
+              checked: data['how-contacted'] === 'email-address',
+              conditional: {
+                html: emailHtml
+              }
+            },
+            {
+              value: "address",
+              text: "Post",
+              checked: data['how-contacted'] === 'address',
+              conditional: {
+                html: postHtml
+              }
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Submit"
+        }) }}
+      </form>
     </div>
   </div>
 
