@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Change your address
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/backstage"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <h1 class="govuk-heading-xl">
+        Document sent
+      </h1>
+      <p class="govuk-body">
+        We sent this temporary badge to {{ email }}
+      </p>
+    </div>
+    <div class="govuk-grid-column-one-half">
+      <img src="/public/images/temp-blue-badge-v1.png" style="
+        width: 100%;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
+      "/>
+    </div>
+  </div>
+
+{% endblock %}

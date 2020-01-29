@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Change your address
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-xl">
+          Backstage
+        </h1>
+
+        <form class="form" action="/backstage/send-invite" method="post" novalidate>
+          <h2 class="govuk-heading-m">
+            Send invite
+          </h2>
+
+          {{ govukInput({
+            id: "email-address",
+            name: "email-address",
+            type: "email",
+            label: {
+              text: "Email address"
+            }
+          }) }}
+
+          {{ govukButton({
+            text: "Send invite"
+          }) }}
+        </form>
+
+        <form class="form" action="/backstage/send-document" method="post" novalidate>
+          <h2 class="govuk-heading-m">
+            Send temporary badge
+          </h2>
+
+          {{ govukInput({
+            id: "email-address",
+            name: "email-address",
+            type: "email",
+            label: {
+              text: "Email address"
+            }
+          }) }}
+
+          {{ govukButton({
+            text: "Send temporary blue badge"
+          }) }}
+        </form>
+    </div>
+  </div>
+
+{% endblock %}
