@@ -15,63 +15,44 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
-      <h1 class="govuk-heading-xl">Check your answers</h1>
+      <h1 class="govuk-heading-xl">Submit and pay</h1>
 
-      <h2 class="govuk-heading-m">Confirm your postal address</h2>
+      <h2 class="govuk-heading-m">Your badge</h2>
 
-      <p class="govuk-body">
-        This is where we will send your blue badge.
-      </p>
+      <hr class="govuk-section-break govuk-section-break--visible">
 
       {{ govukSummaryList({
         rows: [
           {
             key: {
-              text: "Name"
+              text: "Type of badge"
             },
             value: {
-              html: "Stephen Gill"
+              text: data['type-of-badge'] or '2 years'
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "/type-of-badge",
                   text: "Change",
-                  visuallyHiddenText: "name"
+                  visuallyHiddenText: "type of badge"
                 }
               ]
             }
           },
           {
             key: {
-              text: "Date of birth"
+              text: "Delivery method"
             },
             value: {
-              html: "11 June 1982"
+              html: data['delivery-method'] or 'Standard delivery (3 working days)'
             },
             actions: {
               items: [
                 {
-                  href: "#",
+                  href: "/change-delivery-method",
                   text: "Change",
-                  visuallyHiddenText: "date of birth"
-                }
-              ]
-            }
-          },
-          {
-            key: {
-              text: "Address"
-            },
-            value: {
-              html: data['what-is-your-address'] | nl2br
-            },
-            actions: {
-              items: [
-                {
-                  href: "/change-your-address",
-                  text: "Change",
-                  visuallyHiddenText: "address"
+                  visuallyHiddenText: "delivery method"
                 }
               ]
             }
@@ -81,7 +62,7 @@
 
       <h2 class="govuk-heading-m">Next step: pay for your application</h2>
 
-      <p class="govuk-body govuk-!-margin-bottom-7">By submitting an application you confirm that as far as you know, the information you’ve provided is correct and complete.</p>
+      <p class="govuk-body govuk-!-margin-bottom-6">By submitting an application you confirm that as far as you know, the information you’ve provided is correct and complete.</p>
 
       {{ govukButton({
         href: "https://products.payments.service.gov.uk/pay/0e1499a7601443a29d1c285f22312da7",

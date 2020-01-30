@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Check your answers
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript: history.go(-1)"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <form class="form" action="/check-your-answers" method="post" novalidate>
+
+      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+      {{ govukRadios({
+        idPrefix: "delivery-method",
+        name: "delivery-method",
+        fieldset: {
+          legend: {
+            text: "Delivery method",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        items: [
+          {
+            value: "Standard delivery (3 working days)",
+            text: "Standard delivery (3 working days)"
+          },
+          {
+            value: "Fast track delivery (next working day)",
+            text: "Fast track delivery (next working day) – £8.50 extra"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
