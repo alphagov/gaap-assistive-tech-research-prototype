@@ -2,9 +2,10 @@ const express = require('express')
 const fs = require('fs')
 const NotifyClient = require('notifications-node-client').NotifyClient
 const path = require('path');
-const notifyClient = new NotifyClient(process.env.NOTIFY_API_KEY)
 const router = express.Router()
 
+const NOTIFY_API_KEY = process.env.NOTIFY_API_KEY || ''
+const notifyClient = new NotifyClient(NOTIFY_API_KEY)
 
 router.get('/backstage', function(req, res) {
     res.render('backstage/index.html');
@@ -12,6 +13,13 @@ router.get('/backstage', function(req, res) {
 
 
 router.post('/backstage/send-invite', function(req, res) {
+  if (!NOTIFY_API_KEY) {
+    return res.render('backstage/error.html', {
+      error: {
+        message: 'NOTIFY_API_KEY enviroment key not set.'
+      }
+    })
+  }
 
   notifyClient.sendEmail(
     '5d54c4a8-ad5e-4612-9be1-f99d0fedbcfe',
@@ -39,6 +47,13 @@ router.get('/backstage/invite-sent', function(req, res) {
 
 
 router.post('/backstage/send-document', function(req, res) {
+  if (!NOTIFY_API_KEY) {
+    return res.render('backstage/error.html', {
+      error: {
+        message: 'NOTIFY_API_KEY enviroment key not set.'
+      }
+    })
+  }
 
   fs.readFile(
     path.resolve(__dirname, '../temp-blue-badge-v1.pdf'),
