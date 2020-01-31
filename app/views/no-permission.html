@@ -4,6 +4,13 @@
   We can't show you this information – {{ serviceName }} – GOV.UK
 {% endblock %}
 
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/task-list"
+  }) }}
+{% endblock %}
+
 {% block content %}
 
   <div class="govuk-grid-row">
