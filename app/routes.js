@@ -133,7 +133,7 @@ router.post('/backstage/send-document', function(req, res) {
   }
 
   fs.readFile(
-    path.resolve(__dirname, '../temp-blue-badge-v1.pdf'),
+    path.resolve(__dirname, '../temp-blue-badge-v2.pdf'),
     function (err, pdfFile) {
       console.log(err)
       notifyClient.sendEmail(
