@@ -28,7 +28,7 @@
               text: "Type of badge"
             },
             value: {
-              text: data['type-of-badge'] or '2 years'
+              text: (data['type-of-badge'] | replace('-', ' ') | capitalize ) or '2 years'
             },
             actions: {
               items: [
@@ -45,7 +45,7 @@
               text: "Delivery method"
             },
             value: {
-              html: data['delivery-method'] or 'Standard delivery (3 working days)'
+              html: data["delivery-method-labels"]["standard"] if (data["delivery-method"] === "standard" or not data["delivery-method"]) else data["delivery-method-labels"]["fast-track"]
             },
             actions: {
               items: [

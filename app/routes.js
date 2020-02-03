@@ -7,6 +7,83 @@ const router = express.Router()
 const NOTIFY_API_KEY = process.env.NOTIFY_API_KEY || ''
 const notifyClient = new NotifyClient(NOTIFY_API_KEY)
 
+router.post('/change-delivery-method', function (req, res) {
+  const selectedOption = req.body['delivery-method']
+  if (!selectedOption) {
+    const errorSummary = [
+      {
+        text: 'Select your delivery method',
+        href: '#delivery-method'
+      }
+    ]
+    return res.render('change-delivery-method.html', { errorSummary })
+  }
+  res.redirect('/check-your-answers')
+})
+
+router.post('/type-of-badge', function (req, res) {
+  const selectedOption = req.body['type-of-badge']
+  if (!selectedOption) {
+    const errorSummary = [
+      {
+        text: 'Select your type of badge',
+        href: '#type-of-badge'
+      }
+    ]
+    return res.render('type-of-badge.html', { errorSummary })
+  }
+  res.redirect('/check-your-answers')
+})
+
+router.post('/contact-preferences', function (req, res) {
+  let errorSummary = []
+  let errors = {}
+
+  const selectedOption = req.body['how-contacted']
+  if (!selectedOption) {
+    const message = 'Select your contact details'
+    errorSummary = [
+      {
+        text: message,
+        href: '#how-contacted-conditional'
+      }
+    ]
+    errors['how-contacted'] = {
+      text: message
+    }
+  }
+
+  const contactOption = req.body['contact-by-' + selectedOption]
+  if (selectedOption && !contactOption) {
+    let textSuffix = ''
+    if (selectedOption === 'phone-number') {
+      textSuffix = 'phone number'
+    } else if (selectedOption === 'email-address') {
+      textSuffix = 'email address'
+    } else if (selectedOption === 'address') {
+      textSuffix = 'post address'
+    }
+
+    const message = 'Enter your ' + textSuffix
+    errorSummary = [
+      {
+        text: message,
+        href: '#contact-by-' + selectedOption
+      }
+    ]
+    errors['how-contacted'] = true
+    errors[selectedOption] = {
+      text: message
+    }
+  }
+
+  if (errorSummary.length > 0) {
+    return res.render('contact-preferences.html', { errorSummary, errors })
+  }
+
+  res.redirect('/task-list')
+})
+
 router.get('/backstage', function(req, res) {
     res.render('backstage/index.html');
 });
