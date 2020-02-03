@@ -37,7 +37,8 @@
               spellcheck: "false"
             },
             value: data['contact-by-email-address'],
-            errorMessage: errors['email-address']
+            errorMessage: errors['email-address'],
+            autocomplete: "email"
           }) }}
         {% endset -%}
 
@@ -51,7 +52,8 @@
               text: "Phone number"
             },
             value: data['contact-by-phone-number'],
-            errorMessage: errors['phone-number']
+            errorMessage: errors['phone-number'],
+            autocomplete: "tel"
           }) }}
         {% endset -%}
 
@@ -64,7 +66,8 @@
               text: "What is your address?"
             },
             value: data['contact-by-address'],
-            errorMessage: errors['address']
+            errorMessage: errors['address'],
+            autocomplete: "street-address"
           }) }}
         {% endset -%}
 
