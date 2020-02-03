@@ -64,7 +64,7 @@
 
       <p class="govuk-body govuk-!-margin-bottom-6">By submitting an application you confirm that as far as you know, the information you’ve provided is correct and complete.</p>
 
-      {% if (data['delivery-method'] or '').startsWith('Fast track') %}
+      {% if data['delivery-method'] === 'fast-track' %}
         {{ govukButton({
           href: "https://products.payments.service.gov.uk/pay/d3b0506a7c9049ae97dcf2d7bad5be5e",
           text: "Accept and proceed to payment"
