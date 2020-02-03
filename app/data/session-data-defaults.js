@@ -19,6 +19,11 @@ Example usage:
 
 module.exports = {
 
-  'what-is-your-address': '72 Guild Street\nLondon\nSE23 6FH'
+  'what-is-your-address': '72 Guild Street\nLondon\nSE23 6FH',
+
+  'delivery-method-labels': {
+    'standard': 'Standard delivery (3 working days)',
+    'fast-track': 'Fast track delivery (next working day) – £8.50 extra'
+  }
 
 }

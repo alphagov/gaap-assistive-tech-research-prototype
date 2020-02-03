@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Type of badge – {{ serviceName }} – GOV.UK
+  {% if errorSummary.length > 0 %}Error: {% endif %}Type of badge – {{ serviceName }} – GOV.UK
 {% endblock %}
 
 {% block beforeContent %}
@@ -15,7 +15,14 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
-      <form class="form" action="/check-your-answers" method="post" novalidate>
+      {% if errorSummary.length > 0 %}
+          {{ govukErrorSummary({
+              titleText: "There is a problem",
+              errorList: errorSummary
+          }) }}
+      {% endif %}
+
+      <form class="form" method="post" novalidate>
 
       {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
@@ -31,14 +38,17 @@
         },
         items: [
           {
-            value: "2 year",
-            text: "2 year"
+            value: "2-year",
+            text: "2 year",
+            checked: data['type-of-badge'] === '2-year' or not data['type-of-badge']
           },
           {
-            value: "6 month",
-            text: "6 month"
+            value: "6-month",
+            text: "6 month",
+            checked: data['type-of-badge'] === '6-month'
           }
-        ]
+        ],
+        errorMessage: errorSummary[0]
       }) }}
 
       {{ govukButton({

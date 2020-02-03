@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Delivery method – {{ serviceName }} – GOV.UK
+  {% if errorSummary.length > 0 %}Error: {% endif %}Delivery method – {{ serviceName }} – GOV.UK
 {% endblock %}
 
 {% block beforeContent %}
@@ -15,9 +15,14 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
-      <form class="form" action="/check-your-answers" method="post" novalidate>
+      {% if errorSummary.length > 0 %}
+          {{ govukErrorSummary({
+              titleText: "There is a problem",
+              errorList: errorSummary
+          }) }}
+      {% endif %}
 
-      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+      <form class="form" method="post" novalidate>
 
       {{ govukRadios({
         idPrefix: "delivery-method",
@@ -31,14 +36,17 @@
         },
         items: [
           {
-            value: "Standard delivery (3 working days)",
-            text: "Standard delivery (3 working days)"
+            value: "standard",
+            text: data["delivery-method-labels"]["standard"],
+            checked: data["delivery-method"] === "standard" or not data["delivery-method"]
           },
           {
-            value: "Fast track delivery (next working day)",
-            text: "Fast track delivery (next working day) – £8.50 extra"
+            value: "fast-track",
+            text: data["delivery-method-labels"]["fast-track"],
+            checked: data["delivery-method"] === "fast-track"
           }
-        ]
+        ],
+        errorMessage: errorSummary[0]
       }) }}
 
       {{ govukButton({

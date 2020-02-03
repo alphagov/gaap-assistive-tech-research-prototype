@@ -63,7 +63,7 @@
                   Contact details
                 </a>
               </span>
-              {% if data['how-contacted'] %}
+              {% if data['how-contacted'] and data['contact-by-' + data['how-contacted']] %}
                 <strong class="govuk-tag app-task-list__task-completed" id="company-information-completed">Completed</strong>
               {% endif %}
             </li>
