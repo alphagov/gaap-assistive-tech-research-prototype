@@ -66,12 +66,12 @@
 
       {% if data['delivery-method'] === 'fast-track' %}
         {{ govukButton({
-          href: "https://products.payments.service.gov.uk/pay/d3b0506a7c9049ae97dcf2d7bad5be5e",
+          href: "/pay/create-payment?fastTrack=true",
           text: "Accept and proceed to payment"
         }) }}
       {% else %}
         {{ govukButton({
-          href: "https://products.payments.service.gov.uk/pay/81ff61896b3642bf93cc4c707af5ce41",
+          href: "/pay/create-payment",
           text: "Accept and proceed to payment"
         }) }}
       {% endif %}

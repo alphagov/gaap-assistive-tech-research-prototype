@@ -3,6 +3,7 @@ const fs = require('fs')
 const NotifyClient = require('notifications-node-client').NotifyClient
 const path = require('path');
 const router = express.Router()
+const axios = require('axios')
 
 const NOTIFY_API_KEY = process.env.NOTIFY_API_KEY || ''
 const notifyClient = new NotifyClient(NOTIFY_API_KEY)
@@ -84,12 +85,12 @@ router.post('/contact-preferences', function (req, res) {
   res.redirect('/task-list')
 })
 
-router.get('/backstage', function(req, res) {
-    res.render('backstage/index.html');
+router.get('/backstage', function (req, res) {
+  res.render('backstage/index.html');
 });
 
 
-router.post('/backstage/send-invite', function(req, res) {
+router.post('/backstage/send-invite', function (req, res) {
   if (!NOTIFY_API_KEY) {
     return res.render('backstage/error.html', {
       error: {
@@ -116,14 +117,14 @@ router.post('/backstage/send-invite', function(req, res) {
 });
 
 
-router.get('/backstage/invite-sent', function(req, res) {
+router.get('/backstage/invite-sent', function (req, res) {
   res.render('backstage/invite-sent.html', {
     email: req.session.data['email-address']
   });
 });
 
 
-router.post('/backstage/send-document', function(req, res) {
+router.post('/backstage/send-document', function (req, res) {
   if (!NOTIFY_API_KEY) {
     return res.render('backstage/error.html', {
       error: {
@@ -158,11 +159,51 @@ router.post('/backstage/send-document', function(req, res) {
 });
 
 
-router.get('/backstage/document-sent', function(req, res) {
+router.get('/backstage/document-sent', function (req, res) {
   res.render('backstage/document-sent.html', {
     email: req.session.data['email-address']
   });
 });
 
+
+//GOV PAY Integration
+
+axios.defaults.baseURL = process.env.API_BASE_URL;
+axios.defaults.headers.common["Authorization"] =
+  `Bearer ${process.env.CARD_API_TOKEN}`;
+axios.defaults.headers.post["Content-Type"] = "application/json";
+
+router.get('/pay/create-payment', function (req, res) {
+  const isFastTrack = req.param('fastTrack');
+  console.log('PAY - is Fast Track: ', isFastTrack)
+  console.log('PAY - create-payment')
+  console.log('PAY - process.env.API_BASE_URL: ', process.env.API_BASE_URL)
+  console.log('PAY - process.env.LOCAL_URL', process.env.LOCAL_URL)
+
+  axios
+    .post("/v1/payments", {
+      amount: (isFastTrack ? 1850 : 1000),
+      reference: "USER RESEARCH",
+      description: (isFastTrack ? "Blue badge application fee (fast track delivery)" : "Blue badge application fee"),
+      return_url: `${process.env.LOCAL_URL}/confirmation`
+    })
+    .then(response => {
+      console.log("PAY - response.data.payment_id: ", response.data.payment_id);
+      console.log("PAY - redirect link: ", response.data._links.next_url.href);
+      res.cookie("paymentId", response.data.payment_id);
+
+      const RETURN_URL = response.data._links.next_url.href.replace(
+        process.env.DEFAULT_RETURN_URL,
+        process.env.RETURN_URL
+      );
+
+      console.log('PAY - return url: ', RETURN_URL)
+
+      res.redirect(RETURN_URL);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+})
 
 module.exports = router
