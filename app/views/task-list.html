@@ -59,12 +59,14 @@
             </li>
             <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a class="govuk-link" href="/contact-preferences" aria-describedby="company-information-completed">
+                <a class="govuk-link" href="/contact-preferences" aria-describedby="contact-details-completed">
                   Contact details
                 </a>
               </span>
               {% if data['how-contacted'] and data['contact-by-' + data['how-contacted']] %}
-                <strong class="govuk-tag app-task-list__task-completed" id="company-information-completed">Completed</strong>
+                <strong class="govuk-tag app-task-list__task-completed" id="contact-details-completed">Completed</strong>
+              {% else %}
+                <strong class="govuk-tag govuk-tag--grey app-task-list__task-completed" id="contact-details-completed">Not completed</strong>
               {% endif %}
             </li>
           </ul>
@@ -76,10 +78,11 @@
           <ul class="app-task-list__items">
             <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a class="govuk-link" href="/check-your-answers">
+                <a class="govuk-link" href="/check-your-answers" aria-describedby="submit-and-pay-completed">
                   Submit and pay
                 </a>
               </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__task-completed" id="submit-and-pay-completed">Not completed</strong>
             </li>
           </ul>
         </li>
