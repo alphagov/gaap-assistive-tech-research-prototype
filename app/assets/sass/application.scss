@@ -18,3 +18,17 @@ $govuk-assets-path: '/govuk/assets/';
 @import "components/cookie-banner";
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
+
+// Override hover state on links in the header
+// This is currently clashing with the new styles pulled in from frontend
+
+.govuk-header {
+
+  a:hover {
+    color: govuk-colour("white");
+    box-shadow: 0 -2px transparent, 0 4px govuk-colour("white");
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+}
