@@ -36,6 +36,32 @@ router.post('/type-of-badge', function (req, res) {
   res.redirect('/check-your-answers')
 })
 
+router.post('/upload-photo', function (req, res) {
+  let errorSummary = []
+  let errors = {}
+
+  const uploadedPhoto = req.body['upload-photo']
+
+  if (!uploadedPhoto) {
+    const message = 'Please upload a digital photo (PNG, GIF or JPG file) that is no larger than 20MB'
+    errorSummary = [
+      {
+        text: message,
+        href: '#upload-photo'
+      }
+    ]
+    errors['upload-photo'] = {
+      text: "Please upload a photo"
+    }
+  }
+
+  if (errorSummary.length > 0) {
+    return res.render('upload-photo.html', { errorSummary, errors })
+  }
+
+  res.redirect('/task-list')
+})
+
 router.post('/contact-preferences', function (req, res) {
   let errorSummary = []
   let errors = {}
