@@ -6,6 +6,10 @@
 
 {% block content %}
 
+  {{ govukNotificationBanner({
+    "html": "<p class=govuk-notification-banner__heading>There might be a delay in processing your application due to the impact of <a class=govuk-notification-banner__link href=https://www.gov.uk/coronavirus>coronavirus (COVID-19)</a></p>"
+  }) }}
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-xl">
