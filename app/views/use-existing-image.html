@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {% if errorSummary.length > 0 %}Error: {% endif %}Use an existing image – {{ serviceName }} – GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/task-list"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if errorSummary.length > 0 %}
+          {{ govukErrorSummary({
+              titleText: "There is a problem",
+              errorList: errorSummary
+          }) }}
+      {% endif %}
+
+      <form class="form" method="post" novalidate>
+        {% set yesHtml %}
+          {{ govukInput({
+            id: "existing-image-yes",
+            name: "existing-image-yes",
+            classes: "govuk-!-width-two-thirds",
+            label: {
+              text: "Existing badge number"
+            },
+            hint: {
+              text: "For example, 242G48"
+            },
+            attributes: {
+              spellcheck: "false"
+            },
+            value: data['existing-image-yes'],
+            errorMessage: errors['existing-image-yes']
+          }) }}
+        {% endset -%}
+
+        {{ govukRadios({
+          idPrefix: "use-existing-image-conditional",
+          name: "use-existing-image",
+          fieldset: {
+            legend: {
+              text: "Do you want to use the image from your previous Blue Badge",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: ""
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              checked: data['use-existing-image'] === 'yes',
+              conditional: {
+                html: yesHtml
+              }
+            },
+            {
+              value: "no",
+              text: "No",
+              checked: data['use-existing-image'] === 'no'
+            }
+          ],
+          errorMessage: errors['use-existing-image']
+        }) }}
+
+        {{ govukButton({
+          text: "Submit"
+        }) }}
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

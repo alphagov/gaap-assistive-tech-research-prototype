@@ -36,6 +36,82 @@ router.post('/type-of-badge', function (req, res) {
   res.redirect('/check-your-answers')
 })
 
+router.post('/use-existing-image', function (req, res) {
+  let errorSummary = []
+  let errors = {}
+
+  const selectedOption = req.body['use-existing-image']
+  if (!selectedOption) {
+    const message = 'Select yes if you would like to use your existing image'
+    errorSummary = [
+      {
+        text: message,
+        href: '#use-existing-image-conditional'
+      }
+    ]
+    errors['use-existing-image'] = {
+      text: message
+    }
+  }
+
+  const imageOption = req.body['existing-image-' + selectedOption]
+  if (selectedOption === "yes" && !imageOption) {
+    let textSuffix = 'existing badge number'
+    const message = 'Enter your ' + textSuffix
+    errorSummary = [
+      {
+        text: message,
+        href: '#existing-image-' + selectedOption
+      }
+    ]
+    errors['use-existing-image'] = true
+    errors[selectedOption] = {
+      text: message
+    }
+  }
+
+  if (errorSummary.length > 0) {
+    return res.render('use-existing-image.html', { errorSummary, errors })
+  }
+
+  else if (selectedOption === "yes") {
+    res.redirect('/task-list')
+  } else {
+    res.redirect('/upload-photo')
+  }
+})
+
+router.post('/upload-photo', function (req, res) {
+  let errorSummary = []
+  let notificationBanner = {}
+  let errors = {}
+
+  const uploadedPhoto = req.body['upload-photo']
+
+  if (!uploadedPhoto) {
+    const message = 'Please upload a digital photo (PNG, GIF or JPG file) that is no larger than 20MB'
+    errorSummary = [
+      {
+        text: message,
+        href: '#upload-photo'
+      }
+    ]
+    errors['upload-photo'] = {
+      text: "Please upload a photo"
+    }
+  } else {
+    notificationBanner = {
+      text: "Your photo has been successfully uploaded"
+    }
+  }
+
+  if (errorSummary.length > 0 ) {
+    return res.render('upload-photo.html', { errorSummary, errors})
+  }
+
+  return res.render('task-list', {notificationBanner})
+})
+
 router.post('/contact-preferences', function (req, res) {
   let errorSummary = []
   let errors = {}

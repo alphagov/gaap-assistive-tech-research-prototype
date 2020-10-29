@@ -67,11 +67,17 @@
             </li>
             <li class="app-task-list__item">
               <span class="app-task-list__task-name">
-                <a class="govuk-link" href="/no-permission" aria-describedby="upload-a-photo-completed">
+                <a class="govuk-link" href="/use-existing-image" aria-describedby="upload-a-photo-completed">
                   Upload a photo
                 </a>
               </span>
-              <strong class="govuk-tag app-task-list__task-completed" id="upload-a-photo-completed">Completed</strong>
+              {% if data['use-existing-image'] === "yes" %}
+                <strong class="govuk-tag app-task-list__task-completed" id="upload-a-photo-completed">Completed</strong>
+              {% elif data['use-existing-image'] === "no" and data['upload-photo'] %}
+                <strong class="govuk-tag app-task-list__task-completed" id="upload-a-photo-completed">Completed</strong>
+              {% else %}
+                <strong class="govuk-tag govuk-tag--grey app-task-list__task-completed" id="upload-a-photo-completed">Not completed</strong>
+              {% endif %}
             </li>
             <li class="app-task-list__item">
               <span class="app-task-list__task-name">
