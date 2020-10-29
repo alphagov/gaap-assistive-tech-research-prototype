@@ -58,6 +58,25 @@ router.post('/upload-photo', function (req, res) {
   if (errorSummary.length > 0) {
     return res.render('upload-photo.html', { errorSummary, errors })
   }
+  // To test the notification banner, the first time the form is submitted we want to artifically
+  // create an error
+  else if (!req.session.data['randomError']) {
+    req.session.data['randomError'] = true
+    req.session.data['upload-photo'] = null
+    return res.render('upload-photo.html', { randomError: true })
+  }
+
+  res.redirect('/contact-preferences')
+})
+
+router.get('/contact-preferences', function(req, res) {
+  let notificationBanner = false
+
+  if (req.session.data['successBanner']) {
+    notificationBanner = {
+      text: req.session.data['successBanner']
+    }
+  }
 
   res.redirect('/task-list')
 })
