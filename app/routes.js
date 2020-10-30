@@ -70,8 +70,8 @@ router.post('/upload-photo', function (req, res) {
     }
   }
 
-  if (errorSummary.length > 0) {
-    return res.render('upload-photo.html', { errorSummary, errors })
+  if (errorSummary.length > 0 ) {
+    return res.render('upload-photo.html', { errorSummary, errors})
   }
   // To test the notification banner, the first time the form is submitted we want to artifically
   // create an error
@@ -79,24 +79,31 @@ router.post('/upload-photo', function (req, res) {
     req.session.data['randomError'] = true
     req.session.data['upload-photo'] = null
     return res.render('upload-photo.html', { randomError: true })
+  } else {
+    req.session.data['notificationBanner'] = {
+      type: 'success',
+      text: 'Your photo has been successfully uploaded'
+    }
+    res.redirect('/contact-preferences')
   }
-
-  res.redirect('/contact-preferences')
 })
 
 router.get('/contact-preferences', function(req, res) {
   let notificationBanner = false
 
-  if (req.session.data['successBanner']) {
+  if (req.session.data['notificationBanner']) {
     notificationBanner = {
-      text: req.session.data['successBanner']
+      type: req.session.data['notificationBanner']['type'],
+      text: req.session.data['notificationBanner']['text']
     }
   }
 
-  res.redirect('/task-list')
+  return res.render('contact-preferences.html', { notificationBanner })
 })
 
 router.post('/contact-preferences', function (req, res) {
+  let notificationBanner = req.session.data['notificationBanner']
+
   let errorSummary = []
   let errors = {}
 
@@ -139,6 +146,7 @@ router.post('/contact-preferences', function (req, res) {
   }
 
   if (errorSummary.length > 0) {
+    return res.render('contact-preferences.html', { errorSummary, errors, notificationBanner })
   } else {
     req.session.data['notificationBanner'] = {
       type: 'success',
