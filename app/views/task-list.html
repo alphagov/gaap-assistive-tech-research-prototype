@@ -6,6 +6,13 @@
 
 {% block content %}
 
+  {% if notificationBanner %}
+    {{ govukNotificationBanner({
+      "type": notificationBanner['type'],
+      "text": notificationBanner['text']
+    }) }}
+  {% endif %}
+
   {{ govukNotificationBanner({
     "html": "<p class=govuk-notification-banner__heading>There might be a delay in processing your application due to the impact of <a class=govuk-notification-banner__link href=https://www.gov.uk/coronavirus>coronavirus (COVID-19)</a></p>"
   }) }}

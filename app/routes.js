@@ -8,6 +8,21 @@ const router = express.Router()
 const NOTIFY_API_KEY = process.env.NOTIFY_API_KEY || ''
 const notifyClient = new NotifyClient(NOTIFY_API_KEY)
 
+router.get('/task-list', function(req,res) {
+  let notificationBanner = false
+
+  if (req.session.data['notificationBanner']) {
+    notificationBanner = {
+      type: req.session.data['notificationBanner']['type'],
+      text: req.session.data['notificationBanner']['text']
+    }
+
+    req.session.data['notificationBanner'] = false
+  }
+
+  return res.render('task-list', { notificationBanner })
+})
+
 router.post('/change-delivery-method', function (req, res) {
   const selectedOption = req.body['delivery-method']
   if (!selectedOption) {
@@ -124,7 +139,11 @@ router.post('/contact-preferences', function (req, res) {
   }
 
   if (errorSummary.length > 0) {
-    return res.render('contact-preferences.html', { errorSummary, errors })
+  } else {
+    req.session.data['notificationBanner'] = {
+      type: 'success',
+      text: "Your contact details have been saved."
+    }
   }
 
   res.redirect('/task-list')
