@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {% if errorSummary.length > 0 %}Error: {% endif %}List healthcare professionals – {{ serviceName }} – GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/task-list"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if errorSummary.length > 0 %}
+          {{ govukErrorSummary({
+              titleText: "There is a problem",
+              errorList: errorSummary
+          }) }}
+      {% endif %}
+
+      <form class="form" method="post" novalidate>
+        {% set yesHtml %}
+          {% call govukFieldset({
+              legend: {
+                text: "What's the address of your healthcare professional?",
+                classes: "govuk-fieldset__legend--m",
+                isPageHeading: true
+              }
+            }) %}
+
+              {{ govukInput({
+                label: {
+                  html: 'Name of your healthcare professional'
+                },
+                id: "healthcare-professional-name",
+                name: "healthcare-professional-name",
+                value: data["healthcare-professional-name"]
+              }) }}
+
+              {{ govukInput({
+                label: {
+                  html: 'Building and street <span class="govuk-visually-hidden">line 1 of 2</span>'
+                },
+                id: "address-line-1",
+                name: "address-line-1",
+                value: data["address-line-1"]
+              }) }}
+
+              {{ govukInput({
+                label: {
+                  html: '<span class="govuk-visually-hidden">Building and street line 2 of 2</span>'
+                },
+                id: "address-line-2",
+                name: "address-line-2",
+                value: data["address-line-2"]
+              }) }}
+
+              {{ govukInput({
+                label: {
+                  text: "Town or city"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id: "address-town",
+                name: "address-town",
+                value: data["address-town"]
+              }) }}
+
+              {{ govukInput({
+                label: {
+                  text: "County"
+                },
+                classes: "govuk-!-width-two-thirds",
+                id: "address-county",
+                name: "address-county",
+                value: data["address-county"]
+              }) }}
+
+              {{ govukInput({
+                label: {
+                  text: "Postcode"
+                },
+                classes: "govuk-input--width-10",
+                id: "address-postcode",
+                name: "address-postcode",
+                value: data["address-postcard"]
+              }) }}
+
+            {% endcall %}
+        {% endset -%}
+
+        {{ govukRadios({
+          idPrefix: "are-details-conditional",
+          name: "are-details",
+          fieldset: {
+            legend: {
+              text: "Do you know the details of your healthcare professional?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "Give the address details of the healthcare professional involved in the treatment of your condition. For example, your surgeon, physiotherapist or GP."
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              checked: data['are-details'] === 'yes',
+              conditional: {
+                html: yesHtml
+              }
+            },
+            {
+              value: "no",
+              text: "No",
+              checked: data['are-details'] === 'no'
+            }
+          ],
+          errorMessage: errors['are-details']
+        }) }}
+
+        {{ govukButton({
+          text: "Submit"
+        }) }}
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

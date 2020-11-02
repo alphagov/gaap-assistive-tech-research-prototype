@@ -36,6 +36,60 @@ router.post('/type-of-badge', function (req, res) {
   res.redirect('/check-your-answers')
 })
 
+router.post('/list-healthcare-professionals', function (req, res) {
+  let errorSummary = []
+  let errors = {}
+
+  const selectedOption = req.body['are-details']
+  if (!selectedOption) {
+    const message = 'Select yes if you know the details of your healthcare professional'
+    errorSummary = [
+      {
+        text: message,
+        href: '#are-details-conditional'
+      }
+    ]
+    errors['are-details'] = {
+      text: message
+    }
+  }
+
+  const professionalName = req.body['healthcare-professional-name']
+  const town = req.body['address-town']
+  if (selectedOption === "yes" && (!professionalName || !town)) {
+    let textSuffix;
+    let href;
+
+    if (!professionalName) {
+      textSuffix = 'the name of your healthcare professional'
+      href = 'healthcare-professional-name'
+    }
+
+    else if (!town) {
+      textSuffix = 'the town your healthcare professional operates in'
+      href = 'address-town'
+    }
+
+    const message = 'Enter ' + textSuffix
+    errorSummary = [
+      {
+        text: message,
+        href: href
+      }
+    ]
+    errors['use-existing-image'] = true
+    errors[selectedOption] = {
+      text: message
+    }
+  }
+
+  if (errorSummary.length > 0) {
+    return res.render('list-healthcare-professionals.html', { errorSummary, errors })
+  }
+
+  res.redirect('/task-list')
+})
+
 router.post('/use-existing-image', function (req, res) {
   let errorSummary = []
   let errors = {}
