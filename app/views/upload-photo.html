@@ -15,19 +15,18 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+      {% if errorSummary.length > 0 %}
+          {{ govukErrorSummary({
+              titleText: "There is a problem",
+              errorList: errorSummary
+          }) }}
+      {% endif %}
 
       {% if randomError %}
         {{ govukNotificationBanner({
           "type": "error",
           "html": "<h2 heading=govuk-notification-banner__heading>There has been a problem uploading your photo</h2><p class=govuk-body>Please try uploading your photo again.</p>"
         }) }}
-      {% endif %}
-
-      {% if errorSummary.length > 0 %}
-          {{ govukErrorSummary({
-              titleText: "There is a problem",
-              errorList: errorSummary
-          }) }}
       {% endif %}
 
       <h1 class="govuk-heading-l">
