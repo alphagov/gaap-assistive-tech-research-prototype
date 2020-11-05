@@ -33,6 +33,8 @@ $govuk-assets-path: '/govuk/assets/';
 
 }
 
+// Override tag text to be lowercase
 .govuk-tag {
+  text-transform: capitalize;
   letter-spacing: inherit;
 }
