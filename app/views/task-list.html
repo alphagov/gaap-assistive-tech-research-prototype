@@ -9,7 +9,14 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      {% if data['how-contacted'] and data['contact-by-' + data['how-contacted']]%}
+      {% if notificationBanner %}
+        {{ govukNotificationBanner({
+          type: notificationBanner['type'],
+          text: notificationBanner['text']
+        }) }}
+      {% endif %}
+
+      {% if data['use-existing-image'] and data['are-details'] and data['how-contacted'] and data['contact-by-' + data['how-contacted']]%}
         {{ govukNotificationBanner({
           "html": "
             <h3 class=govuk-notification-banner__heading>Information about your application</h3>

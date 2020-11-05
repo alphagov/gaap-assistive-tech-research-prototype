@@ -23,6 +23,13 @@
           }) }}
       {% endif %}
 
+      {% if randomError %}
+        {{ govukNotificationBanner({
+          "type": "error",
+          "html": "<h3 class=govuk-notification-banner__heading>Sorry, there has been a problem uploading your photo</h3><p class=govuk-body>Please try again.</p>"
+        }) }}
+      {% endif %}
+
       <h1 class="govuk-heading-l">
         Add a photo of yourself
       </h1>

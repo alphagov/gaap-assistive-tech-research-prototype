@@ -8,6 +8,21 @@ const router = express.Router()
 const NOTIFY_API_KEY = process.env.NOTIFY_API_KEY || ''
 const notifyClient = new NotifyClient(NOTIFY_API_KEY)
 
+router.get('/task-list', function(req,res) {
+  let notificationBanner = false
+
+  if (req.session.data['notificationBanner']) {
+    notificationBanner = {
+      type: req.session.data['notificationBanner']['type'],
+      text: req.session.data['notificationBanner']['text']
+    }
+
+    req.session.data['notificationBanner'] = false
+  }
+
+  return res.render('task-list', { notificationBanner })
+})
+
 router.post('/change-delivery-method', function (req, res) {
   const selectedOption = req.body['delivery-method']
   if (!selectedOption) {
@@ -85,9 +100,15 @@ router.post('/list-healthcare-professionals', function (req, res) {
 
   if (errorSummary.length > 0) {
     return res.render('list-healthcare-professionals.html', { errorSummary, errors })
+  } else {
+    if (selectedOption === "yes") {
+      req.session.data['notificationBanner'] = {
+        type: "success",
+        text: "Your healthcare professional's details have been saved."
+      }
+    }
+    res.redirect('/task-list')
   }
-
-  res.redirect('/task-list')
 })
 
 router.post('/use-existing-image', function (req, res) {
@@ -137,7 +158,6 @@ router.post('/use-existing-image', function (req, res) {
 
 router.post('/upload-photo', function (req, res) {
   let errorSummary = []
-  let notificationBanner = {}
   let errors = {}
 
   const uploadedPhoto = req.body['upload-photo']
@@ -153,17 +173,20 @@ router.post('/upload-photo', function (req, res) {
     errors['upload-photo'] = {
       text: "Please upload a photo"
     }
-  } else {
-    notificationBanner = {
-      text: "Your photo has been successfully uploaded"
-    }
   }
 
   if (errorSummary.length > 0 ) {
     return res.render('upload-photo.html', { errorSummary, errors})
   }
+  // To test the notification banner, the first time the form is submitted we want to artifically
+  // create an error
+  else if (!req.session.data['randomError']) {
+    req.session.data['randomError'] = true
+    req.session.data['upload-photo'] = null
+    return res.render('upload-photo.html', { randomError: true })
+  }
 
-  return res.render('task-list', {notificationBanner})
+  return res.redirect('/task-list')
 })
 
 router.post('/contact-preferences', function (req, res) {
