@@ -23,7 +23,6 @@ $govuk-assets-path: '/govuk/assets/';
 // This is currently clashing with the new styles pulled in from frontend
 
 .govuk-header {
-
   a:hover {
     color: govuk-colour("white");
     box-shadow: 0 -2px transparent, 0 4px govuk-colour("white");
@@ -31,6 +30,10 @@ $govuk-assets-path: '/govuk/assets/';
     border-bottom: none;
   }
 
+  a:focus {
+    color: govuk-colour("black");
+    box-shadow: 0 -2px transparent, 0 4px govuk-colour("black");
+  }
 }
 
 // Override tag text to be lowercase
