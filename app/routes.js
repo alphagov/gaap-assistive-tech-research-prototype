@@ -194,8 +194,9 @@ router.post('/contact-preferences', function (req, res) {
   let errors = {}
 
   const selectedOption = req.body['how-contacted']
-  if (!selectedOption) {
-    const message = 'Select your contact details'
+
+  if (selectedOption == "_unchecked") {
+    const message = 'Select at least one contact method'
     errorSummary = [
       {
         text: message,
@@ -205,30 +206,27 @@ router.post('/contact-preferences', function (req, res) {
     errors['how-contacted'] = {
       text: message
     }
-  }
+  } else {
+    selectedOption.forEach(function(option) {
+      const contactOption = req.body['contact-by-' + option]
+      if (!contactOption) {
+        let error = {}
+        error['href'] = '#contact-by-' + option
 
-  const contactOption = req.body['contact-by-' + selectedOption]
-  if (selectedOption && !contactOption) {
-    let textSuffix = ''
-    if (selectedOption === 'phone-number') {
-      textSuffix = 'phone number'
-    } else if (selectedOption === 'email-address') {
-      textSuffix = 'email address'
-    } else if (selectedOption === 'address') {
-      textSuffix = 'post address'
-    }
+        if (option === 'phone-number') {
+          error['text'] = 'Enter your phone number'
+          errors['phone-number'] = { text: "Enter your phone number" }
+        } else if (option === 'email-address') {
+          error['text'] = 'Enter your email address'
+          errors['email-address'] = { text: "Enter your email address" }
+        } else if (option === 'address') {
+          error['text'] = 'Enter your post address'
+          errors['address'] = { text: "Enter your post address" }
+        }
 
-    const message = 'Enter your ' + textSuffix
-    errorSummary = [
-      {
-        text: message,
-        href: '#contact-by-' + selectedOption
+        errorSummary.push(error)
       }
-    ]
-    errors['how-contacted'] = true
-    errors[selectedOption] = {
-      text: message
-    }
+    })
   }
 
   if (errorSummary.length > 0) {
