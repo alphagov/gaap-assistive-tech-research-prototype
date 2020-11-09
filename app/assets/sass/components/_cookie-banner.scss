@@ -32,6 +32,7 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
   }
 
   .govuk-button {
+    box-shadow: 0 4px 0 #002d18;
     @include govuk-media-query($from: desktop) {
       width: 90%;
     }
@@ -39,13 +40,17 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
     @include govuk-media-query($until: desktop) {
       margin-bottom: govuk-spacing(4);
     }
-
   }
     
   .govuk-button--secondary {
-    background: #ffffff;
-    border: 2px solid #002D18;
-    box-shadow: 0 2px 0 #002d18;
+    background: govuk-colour("white");
+    border: 2px solid #002d18;
+    color: #0b0c0c;
+    box-shadow: 0 2px #002d18;
+    &:hover {
+    background-color: govuk-tint(govuk-colour("mid-grey"), 90%);
+    color: #002d18;
+    }
   }
     
   .govuk-link {
@@ -56,15 +61,22 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
     padding: 8px 10px 7px;
     text-align: center;
     vertical-align: top; 
-    border: 2px solid transparent;
     @include govuk-media-query($until: desktop) {
       margin-bottom: govuk-spacing(4);
+      padding-left: 0;
     }
   }
     
 }
 
-// Only show accept button if users have js and can accept
+.gem-c-cookie-banner__button-accept {
+    
+    .govuk-button {
+      padding: 8px 10px 5px;
+    }
+}
+
+// Only show accept and reject button if users have js and can accept or reject
 .gem-c-cookie-banner__button-accept, .gem-c-cookie-banner__button-reject {
   display: none;
 }

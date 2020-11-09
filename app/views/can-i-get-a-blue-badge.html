@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {% if errorSummary.length > 0 %}Error: {% endif %}Can I get a blue badge - Guidance – GOV.UK
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-xl">Guidance</span>
+      <h2 class="govuk-heading-xl">Who can get a Blue Badge?</h2>
+
+      <p>
+        Blue Badges help people with disabilities or health conditions park closer to their destination. You can apply for a badge for yourself, on behalf of somebody else or an organisation that transports people that need a Blue Badge.
+      </p>
+
+      <p>
+        In <a href="#">England, Scotland and Wales you can apply on GOV.UK</a> for a Blue Badge.
+      </p>
+
+      <p class="govuk-!-margin-bottom-8">
+        There’s a different way to <a href="#">apply if you’re in Northern Ireland</a>.
+      </p>
+
+      {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+
+      {{ govukAccordion({
+        id: "accordion-default",
+        classes: "govuk-!-margin-bottom-8",
+        items: [
+          {
+            heading: {
+              text: "People who automatically get a Blue Badge"
+            },
+            summary: {
+            text: "eligibility, age, assessment."
+            },
+            content: {
+              html: '<p> You automatically qualify for a Blue Badge if you are over 2 years old and at least one of the following applies: </p> <ul class="govuk-list govuk-list--bullet"> <li>you receive the higher rate of the mobility component of the <a href="#">Disability Living Allowance (DLA)</a></li> <li>you receive a <a href="#">Personal Independence Payment (PIP)</a> because you can’t walk more than 50 metres (a score of 8 points or more under the ‘moving around’ activity of the mobility component)</li> <li>you are registered blind (severely sight impaired)</li> <li>you receive a War Pensioner’s Mobility Supplement</li> <li>you have received a lump sum benefit within tariff levels 1-8 of the Armed Forces and Reserve Forces (Compensation) Scheme and have been certified as having a permanent and substantial disability which causes inability to walk or very considerable difficulty in walking</li> <li>you receive the mobility component of PIP and have obtained 10 points specifically for descriptor E under the ‘planning and following journeys’ activity, on the grounds that you are unable to undertake any journey because it would cause you overwhelming psychological distress</li> </ul> <div class="govuk-inset-text"> If you have any score other than 10 points under descriptor E, in the ‘planning and following journeys’ activity of PIP you may still be eligible for a Blue Badge, but you do not automatically qualify. This includes if you have a higher score of 12. You will have to provide evidence to demonstrate your eligibility which will be assessed as part of your application. </div> <h3 class="govuk-heading-s"> Scotland </h3> <p>In Scotland you are also automatically eligible if at least one of the following applies:</p> <ul class="govuk-list govuk-list--bullet"> <li>you scored 12 points in the ‘planning and following journeys’ part of your mobility assessment for PIP</li> <li>you previously received the higher rate of the mobility component for DLA indefinitely</li> <li>you have had a mandatory reconsideration for PIP accepted by the Department for Work and Pensions (DWP) - you are eligible for a 1 year badge</li> </ul> <h3 class="govuk-heading-s"> Wales </h3> <p>In Wales you are also automatically eligible if at least one of the following applies:</p> <ul class="govuk-list govuk-list--bullet"> <li>you scored 12 points in the ‘planning and following journeys’ part of your mobility assessment for PIP</li> <li>you receive tariff level 6 of the Armed Forces Compensation Scheme for a permanent mental disorder</li> </ul>'
+            }
+          },
+          {
+            heading: {
+              text: "People who may get a Blue Badge"
+            },
+            content: {
+              html: '<p>You may be eligible for a badge if one or more of the following applies:</p><ul class="govuk-list govuk-list--bullet"> <li>you cannot walk at all</li> <li>you cannot walk without help from someone else or using mobility aids</li> <li>you find walking very difficult due to pain, breathlessness or the time it takes</li> <li>walking is dangerous to your health and safety</li> <li>you have a terminal illness, which means you cannot walk or find walking very difficult and have a DS1500 form</li> <li>you have a severe disability in both arms and drive regularly, but cannot operate pay-and-display parking machines</li> <li>you have a child under the age of 3 with a medical condition that means the child always needs to be accompanied by bulky medical equipment</li> <li>you have a child under the age of 3 with a medical condition that means the child must always be kept near a vehicle in case they need emergency medical treatment</li> <li>you are constantly a significant risk to yourself or others near vehicles, in traffic or car parks</li> <li>you struggle severely to plan or follow a journey</li> <li>you find it difficult or impossible to control your actions and lack awareness of the impact you could have on others</li> <li>you regularly have intense and overwhelming responses to situations causing temporary loss of behavioural control</li> <li>you frequently become extremely anxious or fearful of public/open spaces</li></ul>'
+            }
+          },
+            {
+            heading: {
+              text: "What you need to apply for a Blue Badge"
+            },
+            content: {
+              html: '<p>To apply for a blue badge you will need:</p><ul class="govuk-list govuk-list--bullet"> <li>proof of identity</li> <li>proof of address</li> <li>a recent head and shoulders digital photo</li> <li>your national insurance number (if you have one)</li> <li>contact details (phone number, email and postal address)</li></ul><p>To prove your identity, you can provide a copy of either:</p><ul class="govuk-list govuk-list--bullet"> <li>birth or adoption certificate</li> <li>passport</li> <li>driving licence</li> <li>marriage or civil partnership certificate</li> <li>divorce or dissolution certificate</li></ul><p>To prove your address, you can provide a copy of either:</p><ul class="govuk-list govuk-list--bullet"> <li>a recent council tax bill</li> <li>a recent letter from a government department such as Department for Work and Pensions (<abbr title="Department for Work and Pensions">DWP</abbr>)</li> <li>driving licence</li> <li>a recent letter from a school (if you are under 16)</li></ul>'
+            }
+          },
+            {
+            heading: {
+              text: "Providing proof of benefits"
+            },
+            content: {
+              html: '<h3 class="govuk-heading-m">Personal Independence Payment (<abbr title="Personal Independence Payment">PIP</abbr>)</h3><p>You’ll need to know the scores from the mobility assessment and the award end date (if applicable). You’ll also be asked to provide proof of the <abbr title="Personal Independence Payment">PIP</abbr> award. This would be the 3 pages from the letter from <abbr title="Department for Work and Pensions">DWP</abbr>, which clearly shows:</p><ul class="govuk-list govuk-list--bullet"> <li>entitlement to <abbr title="Personal Independence Payment">PIP</abbr> (front page)</li> <li>assessment scores (second to last page)</li> <li>mobility scores (last page)</li></ul><h3 class="govuk-heading-m">Disability Living Allowance (<abbr title="Disability Living Allowance">DLA</abbr>)</h3><p>You’ll need to know which rate of the mobility component you receive and the award end date (if applicable). You’ll also be asked to provide proof of the <abbr title="Disability Living Allowance">DLA</abbr> award. This should be the most recent letter from <abbr title="Department for Work and Pensions">DWP</abbr>, which clearly shows:</p><ul class="govuk-list govuk-list--bullet"> <li>mobility rating</li> <li>certificate of entitlement to <abbr title="Disability Living Allowance">DLA</abbr></li> <li>the date of the letter</li></ul><h3 class="govuk-heading-m">Armed Forces Compensation Scheme</h3><p>You’ll be asked to provide proof of the benefit. This should be the most recent letter from the Ministry of Defence, which clearly shows that you:</p><ul class="govuk-list govuk-list--bullet"> <li>were injured in service on or after 6 April 2005</li> <li>have been awarded a benefit by the Armed Forces Compensation Scheme, with a lump sum payment within Tariffs 1 to 8</li> <li>are certified as having a permanent, substantial disability which causes inability to walk or very considerable difficulty in walking</li></ul><h3 class="govuk-heading-m">War Pensioners’ Mobility Scheme</h3><p>You’ll be asked to provide proof of the benefit. This should be the most recent letter from the Ministry of Defence, which clearly shows that the applicant:</p><ul class="govuk-list govuk-list--bullet"> <li>was injured in service before 6 April 2005</li> <li>is in receipt of a War Pensioners’ Mobility Supplement</li></ul>'
+            }
+          },
+          {
+          heading: {
+            text: "Proof of eligibility"
+          },
+          content: {
+            html: '<p>If you are applying without one of the benefits, the application will need to be assessed by the issuing local council. To help assess the application, you’ll be asked to provide extra information depending on the answers you give when you are checking eligibility.</p><p>If you cannot walk or find walking difficult or you have a non-visible (hidden) condition, you will be asked to provide details of any:</p><ul class="govuk-list govuk-list--bullet"> <li>relevant medication that is taken</li> <li>relevant treatments that you receive or are due to receive</li> <li>healthcare or associated professionals that have been involved with the treatment of your condition</li></ul><p>You will be asked if you want to upload supporting documents. This could be prescriptions, diagnosis letters or correspondence between professionals that treat your condition.</p><p>If you cannot walk or find walking difficult, you will also be asked questions around how your condition affects your walking.</p><p>If you have a non-visible (hidden) condition, you will also be asked questions around how journeys between your vehicle and destination are affected by your condition.</p>'
+          }
+        },
+          {
+          heading: {
+            text: "How you can provide documents"
+          },
+          content: {
+            html: '<p>When you are applying online, you’ll be able to upload a photo or scan of:</p><ul class="govuk-list govuk-list--bullet"> <li>proof of benefit</li> <li>proof of address</li> <li>proof of identity</li> <li>supporting documents</li></ul><p>You can also upload a recent digital photo. Just make sure the photos or scans are good quality and include all of the relevant information.</p><p>If you are applying on a mobile or tablet device, you can take a photo of the required documents and upload within the application itself.</p><p>You can choose not to upload the documents when you’re applying. If you do this you’ll need to supply copies of the documents to the local council. Find out how to <a href="https://www.gov.uk/find-local-council" class="govuk-link">contact your local council</a>.</p><p>Instead, if you receive one of these benefits, you can still apply and your application will be assessed by your local council.</p>'
+          }
+        },
+          {
+          heading: {
+            text: "Blue Badges for organisations"
+          },
+          content: {
+            html: '<p>An organisation may be eligible for a badge (or multiple badges), if they both:</p><ul class="govuk-list govuk-list--bullet"> <li>care for or assist people who need a Blue Badge</li> <li>transport people who need a Blue Badge</li></ul><p>The issuing local council will decide whether the organisation has a clear need for an organisational badge rather than using the individual badges of the people it is transporting. An organisational badge must only be displayed when someone who would be eligible for a Blue Badge in their own right is being transported.</p><p>Common examples of organisations that may be eligible include residential care homes, hospices or local council social services departments. It is unlikely that taxi or private hire operators and community transport operators would be eligible for an organisational Blue Badge as they are not usually concerned with the care of disabled people.</p>'
+          }
+        }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-l">
+        Related guidance
+      </h2>
+
+      <p>
+        The way a Blue Badge can be used differs in England, Scotland and Wales:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li><a href="https://www.gov.uk/government/publications/the-blue-badge-scheme-rights-and-responsibilities-in-england">Blue Badge rules for England</a></li>
+        <li><a href="https://www.nidirect.gov.uk/articles/rights-and-responsibilities-blue-badge-holders">Blue Badge rules for Northern Ireland</a></li>
+        <li><a href="https://www.mygov.scot/blue-badge-scheme/">Blue Badge rules for Scotland</a></li>
+        <li><a href="https://gov.wales/blue-badges-your-rights-and-responsibilities">Blue Badge rules for Wales</a></li>
+      </ul>
+
+    </div>
+  </div>
+
+
+{% endblock %}
