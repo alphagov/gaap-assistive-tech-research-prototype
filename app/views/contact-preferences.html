@@ -71,7 +71,7 @@
           }) }}
         {% endset -%}
 
-        {{ govukRadios({
+        {{ govukCheckboxes({
           idPrefix: "how-contacted-conditional",
           name: "how-contacted",
           fieldset: {
@@ -88,7 +88,7 @@
             {
               value: "phone-number",
               text: "Phone call",
-              checked: data['how-contacted'] === 'phone-number',
+              checked: data['how-contacted'] and data['how-contacted'].includes('phone-number'),
               conditional: {
                 html: phoneHtml
               }
@@ -96,7 +96,7 @@
             {
               value: "email-address",
               text: "Email",
-              checked: data['how-contacted'] === 'email-address',
+              checked: data['how-contacted'] and data['how-contacted'].includes('email-address'),
               conditional: {
                 html: emailHtml
               }
@@ -104,7 +104,7 @@
             {
               value: "address",
               text: "Post",
-              checked: data['how-contacted'] === 'address',
+              checked: data['how-contacted'] and data['how-contacted'].includes('address'),
               conditional: {
                 html: postHtml
               }

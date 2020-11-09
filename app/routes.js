@@ -8,6 +8,21 @@ const router = express.Router()
 const NOTIFY_API_KEY = process.env.NOTIFY_API_KEY || ''
 const notifyClient = new NotifyClient(NOTIFY_API_KEY)
 
+router.get('/task-list', function(req,res) {
+  let notificationBanner = false
+
+  if (req.session.data['notificationBanner']) {
+    notificationBanner = {
+      type: req.session.data['notificationBanner']['type'],
+      text: req.session.data['notificationBanner']['text']
+    }
+
+    req.session.data['notificationBanner'] = false
+  }
+
+  return res.render('task-list', { notificationBanner })
+})
+
 router.post('/change-delivery-method', function (req, res) {
   const selectedOption = req.body['delivery-method']
   if (!selectedOption) {
@@ -36,13 +51,152 @@ router.post('/type-of-badge', function (req, res) {
   res.redirect('/check-your-answers')
 })
 
+router.post('/list-healthcare-professionals', function (req, res) {
+  let errorSummary = []
+  let errors = {}
+
+  const selectedOption = req.body['are-details']
+  if (!selectedOption) {
+    const message = 'Select yes if you know the details of your healthcare professional'
+    errorSummary = [
+      {
+        text: message,
+        href: '#are-details-conditional'
+      }
+    ]
+    errors['are-details'] = {
+      text: message
+    }
+  }
+
+  const professionalName = req.body['healthcare-professional-name']
+  const town = req.body['address-town']
+  if (selectedOption === "yes" && (!professionalName || !town)) {
+    let textSuffix;
+    let href;
+
+    if (!professionalName) {
+      textSuffix = 'the name of your healthcare professional'
+      href = 'healthcare-professional-name'
+    }
+
+    else if (!town) {
+      textSuffix = 'the town your healthcare professional operates in'
+      href = 'address-town'
+    }
+
+    const message = 'Enter ' + textSuffix
+    errorSummary = [
+      {
+        text: message,
+        href: href
+      }
+    ]
+    errors['use-existing-image'] = true
+    errors[selectedOption] = {
+      text: message
+    }
+  }
+
+  if (errorSummary.length > 0) {
+    return res.render('list-healthcare-professionals.html', { errorSummary, errors })
+  } else {
+    if (selectedOption === "yes") {
+      req.session.data['notificationBanner'] = {
+        type: "success",
+        text: "Your healthcare professional's details have been saved."
+      }
+    }
+    res.redirect('/task-list')
+  }
+})
+
+router.post('/use-existing-image', function (req, res) {
+  let errorSummary = []
+  let errors = {}
+
+  const selectedOption = req.body['use-existing-image']
+  if (!selectedOption) {
+    const message = 'Select yes if you would like to use your existing image'
+    errorSummary = [
+      {
+        text: message,
+        href: '#use-existing-image-conditional'
+      }
+    ]
+    errors['use-existing-image'] = {
+      text: message
+    }
+  }
+
+  const imageOption = req.body['existing-image-' + selectedOption]
+  if (selectedOption === "yes" && !imageOption) {
+    let textSuffix = 'existing badge number'
+    const message = 'Enter your ' + textSuffix
+    errorSummary = [
+      {
+        text: message,
+        href: '#existing-image-' + selectedOption
+      }
+    ]
+    errors['use-existing-image'] = true
+    errors[selectedOption] = {
+      text: message
+    }
+  }
+
+  if (errorSummary.length > 0) {
+    return res.render('use-existing-image.html', { errorSummary, errors })
+  }
+
+  else if (selectedOption === "yes") {
+    res.redirect('/task-list')
+  } else {
+    res.redirect('/upload-photo')
+  }
+})
+
+router.post('/upload-photo', function (req, res) {
+  let errorSummary = []
+  let errors = {}
+
+  const uploadedPhoto = req.body['upload-photo']
+
+  if (!uploadedPhoto) {
+    const message = 'Please upload a digital photo (PNG, GIF or JPG file) that is no larger than 20MB'
+    errorSummary = [
+      {
+        text: message,
+        href: '#upload-photo'
+      }
+    ]
+    errors['upload-photo'] = {
+      text: "Please upload a photo"
+    }
+  }
+
+  if (errorSummary.length > 0 ) {
+    return res.render('upload-photo.html', { errorSummary, errors})
+  }
+  // To test the notification banner, the first time the form is submitted we want to artifically
+  // create an error
+  else if (!req.session.data['randomError']) {
+    req.session.data['randomError'] = true
+    req.session.data['upload-photo'] = null
+    return res.render('upload-photo.html', { randomError: true })
+  }
+
+  return res.redirect('/task-list')
+})
+
 router.post('/contact-preferences', function (req, res) {
   let errorSummary = []
   let errors = {}
 
   const selectedOption = req.body['how-contacted']
-  if (!selectedOption) {
-    const message = 'Select your contact details'
+
+  if (selectedOption == "_unchecked") {
+    const message = 'Select at least one contact method'
     errorSummary = [
       {
         text: message,
@@ -52,30 +206,27 @@ router.post('/contact-preferences', function (req, res) {
     errors['how-contacted'] = {
       text: message
     }
-  }
+  } else {
+    selectedOption.forEach(function(option) {
+      const contactOption = req.body['contact-by-' + option]
+      if (!contactOption) {
+        let error = {}
+        error['href'] = '#contact-by-' + option
 
-  const contactOption = req.body['contact-by-' + selectedOption]
-  if (selectedOption && !contactOption) {
-    let textSuffix = ''
-    if (selectedOption === 'phone-number') {
-      textSuffix = 'phone number'
-    } else if (selectedOption === 'email-address') {
-      textSuffix = 'email address'
-    } else if (selectedOption === 'address') {
-      textSuffix = 'post address'
-    }
+        if (option === 'phone-number') {
+          error['text'] = 'Enter your phone number'
+          errors['phone-number'] = { text: "Enter your phone number" }
+        } else if (option === 'email-address') {
+          error['text'] = 'Enter your email address'
+          errors['email-address'] = { text: "Enter your email address" }
+        } else if (option === 'address') {
+          error['text'] = 'Enter your post address'
+          errors['address'] = { text: "Enter your post address" }
+        }
 
-    const message = 'Enter your ' + textSuffix
-    errorSummary = [
-      {
-        text: message,
-        href: '#contact-by-' + selectedOption
+        errorSummary.push(error)
       }
-    ]
-    errors['how-contacted'] = true
-    errors[selectedOption] = {
-      text: message
-    }
+    })
   }
 
   if (errorSummary.length > 0) {

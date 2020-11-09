@@ -9,7 +9,14 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      {% if data['how-contacted'] and data['contact-by-' + data['how-contacted']]%}
+      {% if notificationBanner %}
+        {{ govukNotificationBanner({
+          type: notificationBanner['type'],
+          text: notificationBanner['text']
+        }) }}
+      {% endif %}
+
+      {% if data['are-details'] and data['how-contacted'] and data['contact-by-' + data['how-contacted']]%}
         {{ govukNotificationBanner({
           "html": "
             <h3 class=govuk-notification-banner__heading>Information about your application</h3>
@@ -75,11 +82,23 @@
             </li>
             <li class="app-task-list__item">
               <span class="app-task-list__task-name">
+                <a class="govuk-link" href="/list-healthcare-professionals" aria-describedby="list-healthcare-professionals-completed">
+                  List healthcare professionals
+                </a>
+              </span>
+              {% if data['are-details'] %}
+                <strong class="govuk-tag app-task-list__task-completed" id="list-healthcare-professionals-completed">Completed</strong>
+              {% else %}
+                <strong class="govuk-tag govuk-tag--grey app-task-list__task-completed" id="list-healthcare-professionals-completed">Not completed</strong>
+              {% endif %}
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
                 <a class="govuk-link" href="/contact-preferences" aria-describedby="contact-details-completed">
                   Contact details
                 </a>
               </span>
-              {% if data['how-contacted'] and data['contact-by-' + data['how-contacted']] %}
+              {% if data['how-contacted'] %}
                 <strong class="govuk-tag app-task-list__task-completed" id="contact-details-completed">Completed</strong>
               {% else %}
                 <strong class="govuk-tag govuk-tag--grey app-task-list__task-completed" id="contact-details-completed">Not completed</strong>

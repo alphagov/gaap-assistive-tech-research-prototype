@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {% if errorSummary.length > 0 %}Error: {% endif %}Upload a photo – {{ serviceName }} – GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/task-list"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if errorSummary.length > 0 %}
+          {{ govukErrorSummary({
+              titleText: "There is a problem",
+              errorList: errorSummary
+          }) }}
+      {% endif %}
+
+      {% if randomError %}
+        {{ govukNotificationBanner({
+          "type": "error",
+          "html": "<h3 class=govuk-notification-banner__heading>Sorry, there has been a problem uploading your photo</h3><p class=govuk-body>Please try again.</p>"
+        }) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-l">
+        Add a photo of yourself
+      </h1>
+
+      <p class="govuk-body">You need to add a recent digital photo to be printed on the back of your badge.</p>
+
+      <p class="govuk-body">
+        Make sure it
+        <ul class="govuk-list govuk-list--bullet">
+          <li>has a plain, light background</li>
+          <li>includes your shoulders</li>
+          <li>shows your face clearly</li>
+        </ul>
+
+      </p>
+
+      <form class="form" method="post" novalidate>
+        <div class="govuk-form-group">
+          {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+
+          {{ govukFileUpload({
+            id: "upload-photo",
+            name: "upload-photo",
+            value: data['upload-photo'],
+            label: {
+              text: "Upload a photo of yourself"
+            },
+            hint: {
+              text: "You can use a digital camera, smartphone, or tablet to take a photo, or use a scanner. If you already have a digital photo, it will need to be a PNG, GIF or JPG file, and no larger than 20MB."
+            },
+            errorMessage: errors['upload-photo']
+          }) }}
+        </div>
+        {% from "govuk/components/button/macro.njk" import govukButton %}
+
+        {{ govukButton({
+          text: "Submit"
+        }) }}
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
