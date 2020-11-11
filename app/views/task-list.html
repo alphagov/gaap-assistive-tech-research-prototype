@@ -16,10 +16,10 @@
         }) }}
       {% endif %}
 
-      {% if data['are-details'] and data['how-contacted'] and data['contact-by-' + data['how-contacted']]%}
+      {% if data['are-details'] and data['how-contacted'] %}
         {{ govukNotificationBanner({
           "html": "
-            <h3 class=govuk-notification-banner__heading>Information about your application</h3>
+            <p class=govuk-notification-banner__heading>Information about your application</p>
             <ul class='govuk-list govuk-list--bullet'>
               <li>Once you have submitted your application and received your new badge, please dispose of your old badge.</li>
               <li>There might be a delay in processing your application due to the impact of <a class=govuk-notification-banner__link href=https://www.gov.uk/coronavirus>coronavirus (COVID-19)</a></li>
