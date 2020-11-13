@@ -9,6 +9,11 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
+      {{ govukNotificationBanner({
+        type: "success",
+        html: "<p>Your healthcare professional details have been added. This is a <a href="/">test link</a></p>"
+      }) }}
+
       {% if notificationBanner %}
         {{ govukNotificationBanner({
           type: notificationBanner['type'],
