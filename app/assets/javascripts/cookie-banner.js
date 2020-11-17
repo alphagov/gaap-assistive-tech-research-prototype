@@ -11,6 +11,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.$module.hideCookieMessage = this.hideCookieMessage.bind(this)
     this.$module.showConfirmationMessage = this.showConfirmationMessage.bind(this)
     this.$module.setCookieConsent = this.setCookieConsent.bind(this)
+    this.$module.setRejectCookieConsent = this.setRejectCookieConsent.bind(this)
 
     this.$module.cookieBanner = document.querySelector('.gem-c-cookie-banner')
     this.$module.cookieBannerConfirmationMessage = this.$module.querySelector('.gem-c-cookie-banner__confirmation')
@@ -29,6 +30,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     this.$acceptCookiesLink = this.$module.querySelector('button[data-accept-cookies]')
     if (this.$acceptCookiesLink) {
       this.$acceptCookiesLink.addEventListener('click', this.$module.setCookieConsent)
+    }
+
+    this.$rejectCookiesLink = this.$module.querySelector('button[data-reject-cookies]')
+    if (this.$rejectCookiesLink) {
+      this.$rejectCookiesLink.addEventListener('click', this.$module.setRejectCookieConsent)
     }
 
     this.showCookieMessage()
@@ -70,6 +76,12 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     if (window.GOVUK.globalBarInit) {
       window.GOVUK.globalBarInit.init()
     }
+  }
+
+  CookieBanner.prototype.setRejectCookieConsent = function () {
+    this.$module.showConfirmationMessage()
+    this.$module.cookieBannerConfirmationMessage.focus()
+    window.GOVUK.cookie('cookies_preferences_set', 'true', { days: 365 })
   }
 
   CookieBanner.prototype.showConfirmationMessage = function () {
