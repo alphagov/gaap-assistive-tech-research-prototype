@@ -60,6 +60,7 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
     margin-bottom: 22px;
     padding: 8px 10px 5px;
     text-align: center;
+    line-height:1;
     vertical-align: top; 
     @include govuk-media-query($until: desktop) {
       margin-bottom: govuk-spacing(4);
