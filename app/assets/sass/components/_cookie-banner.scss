@@ -27,10 +27,10 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
 
 .gem-c-cookie-banner__button {
 
-  &.govuk-grid-column-one-quarter-from-desktop {
+  &.govuk-grid-column-one-quarter-from-desktop, &.govuk-grid-column-one-half-from-desktop {
     padding: 0;
   }
-
+    
   .govuk-button {
     box-shadow: 0 4px 0 #002d18;
     @include govuk-media-query($from: desktop) {
