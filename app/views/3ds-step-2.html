@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Submit and pay – {{ serviceName }} – GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+<!-- made this a link to the next page by clicking anywhere on screen because in real life it's an automatic redirect. -->
+<a href="/3ds-step-3">
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+		<h2 class="govuk-heading-m">Checking card details</h2>
+		<p class="govuk-body govuk-!-margin-bottom-6">You may need to complete some extra verification steps.</p>
+	</div>
+  </div>
+  <div class="govuk-grid-row">
+	<!-- hide comments by pressing cmd+ / <div class="govuk-grid-column-one-third">
+    test
+</div> -->
+
+	<div class="govuk-grid-column-one-half">
+		<div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary" style="border: 5px solid #000000;">
+			<!-- add icon image for card checker here-->
+      <div class="govuk-!-padding-left-3.5" style=float:right;>
+        <img src="/public/images/mc_symbol.svg" width="60" alt="mastercard logo">
+        <p> ID Check </p>
+        </div>
+      	<!-- add icon image for bank here-->
+        <div class="govuk-!-padding-bottom-6">
+      <img src="/public/images/icon-piggi-bank.svg" alt="piggi bank logo">
+		<h2 class="govuk-error-summary__title" id="error-summary-title" style="display:inline;">
+      piggi bank
+   </h2>
+   </div>
+			<div class="govuk-error-summary__body">
+				<h3 class="govuk-heading-s">Blue badge - Governme via</h3>
+				<h3 class="govuk-error-summary__title" id="error-summary-title">
+         £10.00
+      </h3>
+				<p class="govuk-body govuk-!-margin-bottom-6">CAR12345_Worldpay</p>
+				<!-- add icon image for card here-->
+				<p class="govuk-body govuk-!-margin-bottom-6">**** **** **** 4321</p>
+				<h3 class="govuk-heading-s">
+         Complete your ID verification to approve this payment
+      </h3>
+				<p class="govuk-body govuk-!-margin-bottom-6">When you’re done, come back to this page</p>
+			</div>
+		</div>
+</div>
+</div>
+</a>
+{% endblock %}
