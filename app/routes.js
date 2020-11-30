@@ -251,7 +251,7 @@ router.post('/backstage/send-invite', function(req, res) {
   }
 
   notifyClient.sendEmail(
-    '5d54c4a8-ad5e-4612-9be1-f99d0fedbcfe',
+    '7995ca7f-293b-4f45-b60b-926a491daec2',
     req.session.data['email-address'],
     {
       personalisation: {}
@@ -289,7 +289,7 @@ router.post('/backstage/send-document', function(req, res) {
     function (err, pdfFile) {
       console.log(err)
       notifyClient.sendEmail(
-        'a44131f2-474b-4da9-a1fd-7ff7d83d48ad',
+        'a878e6b3-968c-4b2b-bd28-352509bbf143',
         req.session.data['email-address'],
         {
           personalisation: {
