@@ -1,0 +1,16 @@
+# =========================================
+# WARNING: Do not commit changes to this file - use for local testing only
+# =========================================
+# 1. Make you own copy.
+# 2. Update with your own PAY_CARD_API_TOKEN. 
+# 3. Rename to '.env*'.
+# 4. Do not commit your changes to this file.
+# =========================================
+# INSERT YOUR DATA HERE:
+
+LOCAL_URL=http://localhost:3000
+PAY_CARD_API_TOKEN=
+PAY_API_BASE_URL=https://publicapi.pymnt.uk
+PAY_TEST_FRONTEND_BASE_URL=www.pymnt.uk
+PAY_FARGATE_FRONTEND_BASE_URL=prototype-frontend.test.pymnt.uk
+PAY_RETURN_URL=3ds-step-1

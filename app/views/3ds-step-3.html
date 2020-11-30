@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Submit and pay – {{ serviceName }} – GOV.UK
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h2 class="govuk-heading-m">Checking card details</h2>
+
+      <p class="govuk-body govuk-!-margin-bottom-6">You may need to complete some extra verification steps.</p>
+
+      <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary" style="border: 5px solid #000000;">
+      <div class="govuk-!-padding-bottom-8">
+      <img src="/public/images/icon-piggi-bank.svg" style="display:inline;" alt="piggi bank logo">
+        <h2 class="govuk-error-summary__title" id="error-summary-title" style="display:inline;">
+          piggi bank
+        </h2>
+      </div>
+      <div class="govuk-!-padding-bottom-7">
+        <img src="/public/images/icon-check-mark.png" alt="checkmark icon for confirmation of ID Check">
+        </div>
+        <h3 class="govuk-error-summary__title" id="error-summary-title">
+            Confirmed
+        </h3>
+
+        <p class="govuk-body govuk-!-margin-bottom-6">Click below if you’re not sent back to the
+merchant’s site in a few seconds.</p>
+<!-- can we change button to blue-->
+<a href="/confirmation" role="button" draggable="false" class="govuk-button" data-module="govuk-button" style="background-color: #2988d4;">
+  Return to merchant
+</a>
+
+        <!-- return to merchant button needs to link to payment confirmaton page , colour of button is :background-color: #2988d4;-->
+        </div>
+      </div>
+
+    </div>
+{% endblock %}
