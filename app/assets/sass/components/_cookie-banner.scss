@@ -57,8 +57,9 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
     display: inline-block;
     position: relative;
     margin-top: 0;
-    margin-bottom: 22px;
-    padding: 8px 10px 5px;
+    margin-bottom: 32px;
+    padding: 8px 10px 7px;
+    border: 2px solid transparent;
     text-align: center;
     line-height:1;
     vertical-align: top; 
@@ -67,7 +68,7 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
       padding-left: 0;
     }
   }
-    
+
 }
 
 .gem-c-cookie-banner__button-accept {
