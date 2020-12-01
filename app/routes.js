@@ -320,21 +320,21 @@ router.get('/backstage/document-sent', function(req, res) {
 
 axios.defaults.baseURL = process.env.PAY_API_BASE_URL
 axios.defaults.headers.common['Authorization'] =
-  `Bearer ${process.env.PAY_CARD_API_TOKEN}`
+  `Bearer ${process.env.PAY_API_KEY}`
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 router.get('/pay/create-payment', function (req, res) {
   const isFastTrack = req.param('fastTrack')
   console.log('PAY - is Fast Track: ', isFastTrack)
   console.log('PAY - process.env.PAY_API_BASE_URL: ', process.env.PAY_API_BASE_URL)
-  console.log('PAY - process.env.LOCAL_URL', process.env.LOCAL_URL)
+  console.log('PAY - process.env.PAY_RETURN_URL: ', process.env.PAY_RETURN_URL)
 
   axios
     .post('/v1/payments', {
       amount: (isFastTrack ? 1850 : 1000),
       reference: 'USER RESEARCH',
       description: (isFastTrack ? 'Blue badge application fee (fast track delivery)' : 'Blue badge application fee'),
-      return_url: `${process.env.LOCAL_URL}/${process.env.PAY_RETURN_URL}`
+      return_url: `${process.env.PAY_RETURN_URL}`
     })
     .then(response => {
       console.log('PAY - response.data.payment_id: ', response.data.payment_id)

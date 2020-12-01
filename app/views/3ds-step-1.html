@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Submit and pay – {{ serviceName }} – GOV.UK
+Submit and pay – {{ serviceName }} – GOV.UK
 {% endblock %}
 
 {% block beforeContent %}
@@ -9,16 +9,21 @@
 {% endblock %}
 
 {% block content %}
-<a href="/3ds-step-2">
+<!-- <a href="/check-three-ds-step-one"> -->
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds-from-desktop">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
 
-      <h2 class="govuk-heading-m">Checking card details</h2>
+    <h2 class="govuk-heading-m">Checking card details</h2>
 
-      <p class="govuk-body govuk-!-margin-bottom-6">Your payment details are being checked.</p>
+    <p class="govuk-body govuk-!-margin-bottom-6">Your payment details are being checked.</p>
 
+    <img src="/public/images/loading-spin.gif" style="display:inline;" width="100" alt="loading page indicator">
+    <div class="govuk-!-padding-bottom-8"></div>
 
-    </div>
+    <p class="govuk-body govuk-!-margin-bottom-6">If you are not automatically redirected n 10 seconds, <a href="/3ds-step-2" class="govuk-link">click here to continue with your payment</a></p>
+
+    <!-- i used the edited back link code for the above link changing the # to the link needed and word 'back' from govuk-link in order to remove the back arrow -->
   </div>
-  </a>
+</div>
+<!-- </a> -->
 {% endblock %}
