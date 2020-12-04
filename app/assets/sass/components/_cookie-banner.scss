@@ -133,6 +133,7 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
     margin-top: govuk-spacing(0);
     position: absolute;
     right: govuk-spacing(1);
+    top: govuk-spacing(1);
   }
 }
 
@@ -175,6 +176,8 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
   }
 
   .gem-c-cookie-banner__confirmation-message {
+    display: none;
+
     @include govuk-media-query($from: desktop) {
       margin-bottom: 0;
     }
