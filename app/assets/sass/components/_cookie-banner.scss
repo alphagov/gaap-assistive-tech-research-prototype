@@ -25,19 +25,14 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
 }
 
 
-.gem-c-cookie-banner__button {
-
-  &.govuk-grid-column-one-quarter-from-desktop, &.govuk-grid-column-one-half-from-desktop {
-    padding: 0;
-  }
+.gem-c-cookie-banner__buttons {
     
   .govuk-button {
-    @include govuk-media-query($from: desktop) {
-      width: 90%;
-    }
-
     @include govuk-media-query($until: desktop) {
       margin-bottom: govuk-spacing(4);
+    }
+    @include govuk-media-query($from: tablet) {
+      margin-bottom: govuk-spacing(2);
     }
   }
 
@@ -54,12 +49,18 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
       margin-right: auto;
       margin-left: auto;
       text-align: center;
-
+    
       @include govuk-media-query($from: tablet) {
         width: auto;
         margin-right: govuk-spacing(2);
         margin-left: govuk-spacing(2);
       }
+    
+      @include govuk-media-query($from: tablet, $until: desktop) {
+        margin-left: 0;
+      }
+
+
 }
 
 
