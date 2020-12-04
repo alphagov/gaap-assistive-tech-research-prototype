@@ -25,58 +25,45 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
 }
 
 
-.gem-c-cookie-banner__button {
-
-  &.govuk-grid-column-one-quarter-from-desktop, &.govuk-grid-column-one-half-from-desktop {
-    padding: 0;
-  }
+.gem-c-cookie-banner__buttons {
 
   .govuk-button {
-    box-shadow: 0 4px 0 #002d18;
-    @include govuk-media-query($from: desktop) {
-      width: 90%;
-    }
-
     @include govuk-media-query($until: desktop) {
       margin-bottom: govuk-spacing(4);
     }
-  }
-
-  .govuk-button--secondary {
-    background: govuk-colour("white");
-    border: 2px solid #002d18;
-    color: #0b0c0c;
-    box-shadow: 0 2px #002d18;
-    &:hover {
-    background-color: govuk-tint(govuk-colour("mid-grey"), 90%);
-    color: #002d18;
-    }
-  }
-
-  .govuk-link {
-    display: inline-block;
-    position: relative;
-    margin-top: 0;
-    margin-bottom: 32px;
-    padding: 8px 10px 7px;
-    border: 2px solid transparent;
-    text-align: center;
-    line-height:1;
-    vertical-align: top;
-    @include govuk-media-query($until: desktop) {
-      margin-bottom: govuk-spacing(4);
-      padding-left: 0;
+    @include govuk-media-query($from: tablet) {
+      margin-bottom: govuk-spacing(2);
     }
   }
 
 }
 
-.gem-c-cookie-banner__button-accept {
+.govuk-link-align-button {
+      @include govuk-font($size: 19, $line-height: 19px);
+      @include govuk-responsive-margin(6, "bottom", $adjustment: govuk-spacing(2));
 
-    .govuk-button {
-      padding: 8px 10px 5px;
-    }
+      box-sizing: border-box;
+      display: inline-block;
+      width: 100%;
+      margin-top: govuk-spacing(2);
+      margin-right: auto;
+      margin-left: auto;
+      text-align: center;
+
+      @include govuk-media-query($from: tablet) {
+        width: auto;
+        margin-right: govuk-spacing(2);
+        margin-left: govuk-spacing(2);
+      }
+
+      @include govuk-media-query($from: tablet, $until: desktop) {
+        margin-left: 0;
+      }
+
+
 }
+
+
 
 // Only show accept and reject button if users have js and can accept or reject
 .gem-c-cookie-banner__button-accept, .gem-c-cookie-banner__button-reject {
@@ -115,7 +102,6 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
 }
 
 .gem-c-cookie-banner__confirmation-message {
-  display: none;
   margin-right: govuk-spacing(4);
 
   @include govuk-media-query($from: desktop) {
@@ -147,7 +133,6 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
     margin-top: govuk-spacing(0);
     position: absolute;
     right: govuk-spacing(1);
-    top: govuk-spacing(1);
   }
 }
 
