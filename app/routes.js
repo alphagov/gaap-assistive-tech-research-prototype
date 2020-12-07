@@ -319,8 +319,7 @@ router.get('/backstage/document-sent', function(req, res) {
 //GOV PAY Integration
 
 axios.defaults.baseURL = process.env.PAY_API_BASE_URL
-axios.defaults.headers.common['Authorization'] =
-  `Bearer ${process.env.PAY_API_KEY}`
+axios.defaults.headers.common['Authorization'] = `Bearer ${process.env.PAY_API_KEY}`
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 router.get('/pay/create-payment', function (req, res) {
@@ -344,7 +343,7 @@ router.get('/pay/create-payment', function (req, res) {
       const UPDATED_NEXT_URL = response.data._links.next_url.href.replace(
         process.env.PAY_TEST_FRONTEND_BASE_URL,
         process.env.PAY_FARGATE_FRONTEND_BASE_URL
-      );
+      )
 
       console.log('PAY - return url: ', UPDATED_NEXT_URL)
 
