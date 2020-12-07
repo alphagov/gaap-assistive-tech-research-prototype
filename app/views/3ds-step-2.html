@@ -39,11 +39,15 @@ Submit and pay – {{ serviceName }} – GOV.UK
 			<div class="govuk-error-summary__body">
 				<h3 class="govuk-heading-s">Blue badge - Governme via</h3>
 				<h3 class="govuk-error-summary__title" id="error-summary-title">
-					£10.00
+					{% if data['delivery-method'] === 'fast-track' %}
+					{{ "£18.50" }}
+					{% else %}
+					{{ "£10.00" }}
+					{% endif %}
 				</h3>
 				<p class="govuk-body govuk-!-margin-bottom-6">CAR12345_Worldpay</p>
 				<!-- add icon image for card here-->
-				<p class="govuk-body govuk-!-margin-bottom-6">**** **** **** 4321</p>
+				<p class="govuk-body govuk-!-margin-bottom-6">**** **** **** 1111</p>
 				<h3 class="govuk-heading-s">
 					Complete your ID verification to approve this payment
 				</h3>
