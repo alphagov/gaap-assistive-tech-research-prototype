@@ -29,7 +29,7 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
     
   .govuk-button {
     @include govuk-media-query($until: desktop) {
-      margin-bottom: govuk-spacing(4);
+      margin-bottom: 17px;
     }
     @include govuk-media-query($from: tablet) {
       margin-bottom: govuk-spacing(2);
@@ -49,17 +49,15 @@ $govuk-cookie-banner-background: govuk-colour("light-grey", "grey-4");
       margin-right: auto;
       margin-left: auto;
       text-align: center;
-    
+      @include govuk-media-query($until: desktop) {
+        margin-top: 3px;
+        margin-bottom: 0px;
+      }
       @include govuk-media-query($from: tablet) {
         width: auto;
         margin-right: govuk-spacing(2);
         margin-left: govuk-spacing(2);
       }
-    
-      @include govuk-media-query($from: tablet, $until: desktop) {
-        margin-left: 0;
-      }
-
 
 }
 
