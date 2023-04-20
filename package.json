@@ -38,7 +38,7 @@
     "marked": "^3.0.8",
     "node-sass": "^6.0.1",
     "notifications-node-client": "^5.1.0",
-    "nunjucks": "^3.2.1",
+    "nunjucks": "^3.2.4",
     "portscanner": "^2.1.1",
     "require-dir": "^1.0.0",
     "sync-request": "^6.0.0",
